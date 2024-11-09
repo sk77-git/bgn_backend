@@ -1,9 +1,13 @@
 package com.skthakur.bgn_backend.util;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.http.HttpStatus;
 
 import java.util.Map;
 
+@Setter
+@Getter
 public class ResponseWrapper<T> {
     private HttpStatus status;
     private String message;
@@ -17,38 +21,6 @@ public class ResponseWrapper<T> {
         this.errors = errors;
     }
 
-    // Getters and Setters
-    public HttpStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(HttpStatus status) {
-        this.status = status;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public T getData() {
-        return data;
-    }
-
-    public void setData(T data) {
-        this.data = data;
-    }
-
-    public Map<String, String> getErrors() {
-        return errors;
-    }
-
-    public void setErrors(Map<String, String> errors) {
-        this.errors = errors;
-    }
 }
 
 

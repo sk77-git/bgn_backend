@@ -18,6 +18,7 @@ import java.util.Optional;
 
 @RestController
 @Validated
+@RequestMapping("posts")
 public class PostController {
 
     private final PostService postService;
@@ -31,7 +32,7 @@ public class PostController {
     }
 
     // Create a post
-    @PostMapping("/admin/post")
+    @PostMapping("/create")
     public ResponseEntity<ResponseWrapper<Post>> createRecord(@Valid @ModelAttribute PostRequestDto postRequestDto) {
         try {
             Post post = postService.createPost(
@@ -51,7 +52,7 @@ public class PostController {
     }
 
     // Update a Post
-    @PutMapping("/admin/post/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<ResponseWrapper<Post>> updatePost(@PathVariable Long id, @Valid @ModelAttribute PostRequestDto postRequestDto) {
         try {
             Optional<Post> updatedPost = postService.updatePost(
@@ -74,7 +75,7 @@ public class PostController {
     }
 
     // List all Posts
-    @GetMapping("/posts")
+    @GetMapping("/list")
     public ResponseEntity<ResponseWrapper<List<Post>>> getPosts(
             @RequestParam("resource_type") ResourceType resourceType,
             @RequestParam("semester") int semester
@@ -84,7 +85,7 @@ public class PostController {
     }
 
     // Get a single post by ID
-    @GetMapping("/posts/{id}")
+    @GetMapping("/get/{id}")
     public ResponseEntity<ResponseWrapper<Post>> getPostById(@PathVariable Long id) {
         return postService.getPostById(id)
                 .map(post -> buildResponse(HttpStatus.OK, "Post fetched successfully.", post, null))
@@ -92,7 +93,7 @@ public class PostController {
     }
 
     // Delete a post by ID
-    @DeleteMapping("/admin/posts/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<ResponseWrapper<String>> deletePost(@PathVariable Long id) {
         boolean deleted = postService.deletePost(id);
         return deleted
